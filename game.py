@@ -94,7 +94,7 @@ def deal_damage(attacker: "Character", defender: "Character"):
 	# TODO: Calculer dégâts
 	dmg, crit = attacker.compute_damage(defender)
 	print(f"{attacker.name} used {attacker.weapon.name}\n  {defender.name} took {dmg} dmg")
-	return dmg
+	return dmg, crit
 
 
 def run_battle(c1: "Character", c2: "Character"):
@@ -103,12 +103,14 @@ def run_battle(c1: "Character", c2: "Character"):
 	numberOfAttacks = 0
 	while c1.hp > 0 and c2.hp > 0:
 		if numberOfAttacks%2 == 0:
-			dmg = deal_damage(c1, c2)
+			dmg, crit = deal_damage(c1, c2)
 			c2.hp = c2.hp - dmg
+			if crit: print("-------Critical damage-------")
 			print(f"{c2.name} now has {c2.hp} health points\n")
 		if numberOfAttacks%2 != 0:
-			dmg = deal_damage(c1, c2)
+			dmg, crit = deal_damage(c2, c1)
 			c1.hp = c1.hp - dmg
+			if crit: print("-------Critical damage-------")
 			print(f"{c1.name} now has {c1.hp} health points\n")
 			
 		
